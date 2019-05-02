@@ -3,26 +3,6 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
 const path = require(`path`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
 
-const buildLinkMap = ({ getNodes }) => {
-  const linkMap = {}
-
-  const typeMap = {
-    wordpress__PAGE: "page",
-  }
-
-  for (let node of getNodes()) {
-    if (node.internal.type in typeMap) {
-      linkMap[node.wordpress_id] = buildLink({
-        lang: node.lang,
-        slug: node.slug,
-        type: typeMap[node.internal.type],
-      })
-    }
-  }
-  console.log(buildLinkMap)
-  return linkMap
-}
-
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
   const HomePageTemplate = path.resolve("./src/templates/HomePage.js")
